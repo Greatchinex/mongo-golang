@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"mongo-golang/controllers"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
@@ -11,9 +11,10 @@ import (
 func main() {
 	router := httprouter.New()
 
-	router.GET("/users", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		fmt.Println("GOLANG SERVER!!!!!!")
-	})
+	uc := controllers.NewUserController(getSession())
+	router.GET("/user/:id", uc.GetUser)
+	router.POST("/user", uc.CreateUser)
+	router.DELETE("/user/:id", uc.DeleteUser)
 
 	http.ListenAndServe("localhost:7070", router)
 }
