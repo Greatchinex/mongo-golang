@@ -14,6 +14,8 @@ func main() {
 	router.GET("/users", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		fmt.Println("GOLANG SERVER!!!!!!")
 	})
+
+	http.ListenAndServe("localhost:7070", router)
 }
 
 func getSession() *mgo.Session {
