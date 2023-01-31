@@ -1,11 +1,12 @@
 package main
 
 import (
-	"mongo-golang/controllers"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
 	"gopkg.in/mgo.v2"
+
+	"github.com/Greatchinex/mongo-golang/controllers"
 )
 
 func main() {

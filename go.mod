@@ -1,4 +1,4 @@
-module mongo-golang
+module github.com/Greatchinex/mongo-golang
 
 go 1.18
 
