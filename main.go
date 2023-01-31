@@ -13,6 +13,7 @@ func main() {
 
 	uc := controllers.NewUserController(getSession())
 	router.GET("/user/:id", uc.GetUser)
+	router.GET("/users", uc.GetAllUsers)
 	router.POST("/user", uc.CreateUser)
 	router.DELETE("/user/:id", uc.DeleteUser)
 

@@ -45,6 +45,26 @@ func (uc UserController) GetUser(w http.ResponseWriter, r *http.Request, p httpr
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "%s\n", userToJson)
 }
+
+func (uc UserController) GetAllUsers(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	users := make([]models.User, 0)
+
+	err := uc.session.DB("mongo-golang").C("users").Find(bson.M{}).All(&users)
+	if err != nil {
+		fmt.Printf("Something went wrong ===> %v\n", err)
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+
+	userToJson, err := json.Marshal(users)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "%s\n", userToJson)
+}
  
 func (uc UserController) CreateUser(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	user := models.User{}
